@@ -1,0 +1,26 @@
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# 1. Veriyi Yükleme
+df = pd.read_csv('water_potability.csv')
+
+# 2. Eksik Veri Analizi
+print("Eksik Değerler:\n", df.isnull().sum())
+
+# 3. Eksik Verileri Doldurma (Median ile)
+df['ph'] = df['ph'].fillna(df['ph'].median())
+df['Sulfate'] = df['Sulfate'].fillna(df['Sulfate'].median())
+df['Trihalomethanes'] = df['Trihalomethanes'].fillna(df['Trihalomethanes'].median())
+
+# 4. Korelasyon Matrisi Görselleştirme
+plt.figure(figsize=(10, 8))
+sns.heatmap(df.corr(), annot=True, cmap='coolwarm', fmt='.2f')
+plt.title('Su Kalitesi Parametreleri Arasındaki Korelasyon')
+plt.show()
+
+# 5. Potability Dağılımı (Hedef Değişken)
+sns.countplot(x='Potability', data=df)
+plt.title('İçilebilir (1) vs İçilemez (0) Su Örnekleri')
+plt.show()
+
