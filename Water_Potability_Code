@@ -3,7 +3,7 @@ import pandas as pd
 
 import warnings
 warnings.filterwarnings('ignore')
-import pandas as pd
+
 
 df = pd.read_csv('water_potability.csv')
 df
